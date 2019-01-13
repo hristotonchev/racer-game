@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<link href="/css/styles.css" rel="stylesheet" type="text/css" />
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+}
+
+table, td, th {
+  border: 1px solid black;
+  padding: 10px;
+}
+#logout {
+    position: absolute;
+    top: 10px;
+    right: 5%;
+}
+</style>
+</head>
+<body>
+
+
+
+<?php if (isset($_SESSION['fb_access_token'])) { ?>
+    <p>Logged in as <?php echo $vars['user']['name']?></p>
+<?php } else {
+    echo '<a href="' . htmlspecialchars($vars['login_url']) . '">Log in with Facebook!</a>';
+    } ?>
+<div id="logout">
+<?php if (isset($_SESSION['fb_access_token'])) { ?>
+<a href="../index.php/logout">Logout</a>
+<?php } ?>
+</div>
+
+<div style="width:800px; margin:0 auto;">
+<?php if (isset($_SESSION['fb_access_token'])) { ?>
+<div style="width:800px; padding: 22px;">
+
+<table>
+    <h2>User Details</h2>
+  <tr>
+    <th>#</th>
+    <th>Firstname</th>
+    <th>Points</th>
+    <th>Url</th>
+  </tr>
+
+   <tr>
+    <td><?php echo htmlspecialchars($vars['user']['id']);?></td>
+    <td><?php echo htmlspecialchars($vars['user']['name']);?></td>
+    <td><?php echo htmlspecialchars($vars['user']['count']);?></td>
+    <td> <a href="../index.php?hash=<?php echo htmlspecialchars($vars['user']['link']);?>">localhost/index.php?hash=<?php echo htmlspecialchars($vars['user']['link']);?></a></td>
+  </tr
+</table>
+
+
+<?php } ?>
+
+
+<table>
+    <h2>Races</h2>
+  <tr>
+    <th>#</th>
+    <th>Firstname</th>
+    <th>Points</th>
+  </tr>
+ <?php foreach ($vars['racersData'] as $racersData): ?>
+   <tr>
+    <td><?php echo htmlspecialchars($racersData['id']);?></td>
+    <td><?php echo htmlspecialchars($racersData['name']);?></td>
+    <td><?php echo htmlspecialchars($racersData['count']);?></td>
+  </tr
+<?php endforeach  ?>
+</table>
+</div>
+</div>
+</body>
+
+</html>
